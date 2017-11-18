@@ -57,6 +57,4 @@ class User {
     }
 }
 
-new User({'first':'ad','second':'masdmh'});
-
 module.exports = User;

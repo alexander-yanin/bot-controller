@@ -7,17 +7,31 @@ class Provider {
     }
 
     generateUri(methodName, params) {
-        let queryParams = "";
-        for (let param in params) {
-            queryParams += `${param}=${params[param]}&`
-        }
-        console.log(queryParams);
-
+        let queryParams = Object.keys(params).reduce((previousValue, key) => {
+            return `${previousValue}&${key}=${params[key]}`
+        }, `access_token=${this.user.token}`);
+        // }, ``);
         return `${this.setting.uri}/${this.setting.methods[methodName].uri}?${queryParams}`;
     }
 
     userGet(params) {
         let uri = this.generateUri("getUser", params);
+        console.log(uri);
+        request.get(uri, (err, res, body) => {
+            console.log(body);
+        });
+    }
+
+    wallGet(params) {
+        let uri = this.generateUri("getWall", params);
+        console.log(uri);
+        request.get(uri, (err, res, body) => {
+            console.log(body);
+        });
+    }
+
+    addLike(params) {
+        let uri = this.generateUri("addLike", params);
         console.log(uri);
         request.get(uri, (err, res, body) => {
             console.log(body);
