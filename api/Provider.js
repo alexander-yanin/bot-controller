@@ -1,4 +1,5 @@
 const request = require(`request`);
+const fetch = require(`node-fetch`);
 
 class Provider {
     constructor(setting, user) {
@@ -14,28 +15,26 @@ class Provider {
         return `${this.setting.uri}/${this.setting.methods[methodName].uri}?${queryParams}`;
     }
 
-    userGet(params) {
+    async userGet(params) {
         let uri = this.generateUri("getUser", params);
-        console.log(uri);
-        request.get(uri, (err, res, body) => {
-            console.log(body);
-        });
+        let response = await fetch(uri);
+        let parsedData = await response.json();
+
+        return parsedData.response;
     }
 
-    wallGet(params) {
+    async wallGet(params) {
         let uri = this.generateUri("getWall", params);
-        console.log(uri);
-        request.get(uri, (err, res, body) => {
-            console.log(body);
-        });
+        let response = await fetch(uri);
+        let parsedData = await response.json();
+        return parsedData.response;
     }
 
-    addLike(params) {
+    async addLike(params) {
         let uri = this.generateUri("addLike", params);
-        console.log(uri);
-        request.get(uri, (err, res, body) => {
-            console.log(body);
-        });
+        let response = await fetch(uri);
+        let parsedData = await response.json();
+        return parsedData.response;
     }
 }
 
